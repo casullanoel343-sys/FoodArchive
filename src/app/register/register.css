@@ -1,0 +1,108 @@
+
+.register-content {
+  --background: #f0f5ff;
+}
+
+.register-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 18px;
+}
+
+.register-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-logo ion-icon {
+  font-size: 65px;
+  color: #2563eb;
+}
+
+.register-logo h1 {
+  color: #1e40af;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 10px 0 5px;
+}
+
+.register-logo p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0;
+  padding: 12px 5px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+ion-card-title {
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+ion-card-header p {
+  color: #888;
+  font-size: 13px;
+}
+
+ion-item {
+  --background: #f8faff;
+  --border-radius: 10px;
+  --padding-start: 12px;
+  margin: 15px 0;
+}
+
+ion-item ion-icon {
+  color: #2563eb;
+}
+
+ion-input {
+  --color: #172554;
+  --placeholder-color: #999999;
+  --highlight-color-focused: #2563eb;
+  --highlight-color-valid: #2563eb;
+}
+
+ion-input::part(label) {
+  color: #64748b;
+}
+
+ion-input.has-focus::part(label) {
+  color: #2563eb;
+}
+
+.register-button {
+  margin-top: 25px;
+  height: 48px;
+  font-weight: 700;
+  --border-radius: 10px;
+  --background: #2563eb;
+  --background-hover: #1d4ed8;
+  --background-activated: #1e40af;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link p {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.login-link ion-button {
+  font-weight: 700;
+  --color: #2563eb;
+}

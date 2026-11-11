@@ -1,0 +1,247 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Admin Dashboard</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="admin-content">
+
+  <div class="admin-container">
+
+    <!-- WELCOME SECTION -->
+    <div class="admin-welcome">
+      <ion-icon name="restaurant-outline"></ion-icon>
+      <h1>Welcome, Administrator!</h1>
+      <p>Manage your Food Archive recipes here.</p>
+    </div>
+
+    <!-- RECIPE SUMMARY -->
+    <ion-card class="summary-card">
+      <ion-card-content>
+        <div class="summary-content">
+          <div>
+            <p>Total Recipes</p>
+            <h2>{{ recipes().length }}</h2>
+          </div>
+
+          <ion-icon name="restaurant-outline"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- ADD RECIPE BUTTON -->
+    <div class="section-heading">
+      <h2>Manage Recipes</h2>
+
+      <ion-button color="primary" (click)="openAddForm()">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Add Recipe
+      </ion-button>
+    </div>
+
+    <!-- RECIPE FORM -->
+    @if (showForm()) {
+
+      <ion-card class="recipe-form-card">
+
+        <ion-card-header>
+          <ion-card-title>
+            {{ editingId() ? 'Edit Recipe' : 'Add New Recipe' }}
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <ion-item>
+            <ion-input
+              label="Recipe Name"
+              labelPlacement="stacked"
+              placeholder="Enter recipe name"
+              [(ngModel)]="recipeForm.name">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-select
+              label="Category"
+              labelPlacement="stacked"
+              [(ngModel)]="recipeForm.category"
+              interface="popover">
+
+              <ion-select-option value="Chicken">Chicken</ion-select-option>
+              <ion-select-option value="Beef">Beef</ion-select-option>
+              <ion-select-option value="Pasta">Pasta</ion-select-option>
+              <ion-select-option value="Dessert">Dessert</ion-select-option>
+
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-textarea
+              label="Description"
+              labelPlacement="stacked"
+              placeholder="Describe your recipe"
+              [autoGrow]="true"
+              [(ngModel)]="recipeForm.description">
+            </ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Cooking Time (minutes)"
+              labelPlacement="stacked"
+              type="number"
+              [(ngModel)]="recipeForm.cooking_time">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              label="Recipe Image URL"
+              labelPlacement="stacked"
+              placeholder="Enter image URL"
+              [(ngModel)]="recipeForm.image">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-textarea
+              label="Ingredients"
+              labelPlacement="stacked"
+              placeholder="Enter one ingredient per line"
+              [autoGrow]="true"
+              [(ngModel)]="recipeForm.ingredientsText">
+            </ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-textarea
+              label="Cooking Steps"
+              labelPlacement="stacked"
+              placeholder="Enter one cooking step per line"
+              [autoGrow]="true"
+              [(ngModel)]="recipeForm.stepsText">
+            </ion-textarea>
+          </ion-item>
+
+          <div class="form-buttons">
+
+            <ion-button
+              expand="block"
+              color="primary"
+              (click)="saveRecipe()">
+              <ion-icon name="save-outline" slot="start"></ion-icon>
+              Save Recipe
+            </ion-button>
+
+            <ion-button
+              expand="block"
+              fill="outline"
+              color="medium"
+              (click)="cancelForm()">
+              Cancel
+            </ion-button>
+
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+
+    }
+
+    <!-- RECIPE LIST -->
+    <div class="recipe-list-section">
+
+      <h2>Recipe List</h2>
+
+      @if (loading()) {
+
+        <div class="loading-section">
+          <ion-spinner name="crescent"></ion-spinner>
+          <p>Loading recipes...</p>
+        </div>
+
+      } @else if (recipes().length > 0) {
+
+        @for (recipe of recipes(); track recipe.id) {
+
+          <ion-card class="admin-recipe-card">
+
+            <ion-card-content>
+
+              <div class="recipe-information">
+
+                <div class="recipe-details">
+                  <h3>{{ recipe.name }}</h3>
+
+                  <p>{{ recipe.category }}</p>
+
+                  <p>{{ recipe.description }}</p>
+
+                  <p>
+                    Cooking Time:
+                    {{ recipe.cooking_time ?? 0 }} minutes
+                  </p>
+                </div>
+
+              </div>
+
+              <div class="recipe-actions">
+
+                <ion-button
+                  color="primary"
+                  fill="outline"
+                  (click)="editRecipe(recipe)">
+
+                  <ion-icon name="create-outline" slot="start"></ion-icon>
+                  Edit
+
+                </ion-button>
+
+                <ion-button
+                  color="danger"
+                  fill="outline"
+                  (click)="deleteRecipe(recipe)">
+
+                  <ion-icon name="trash-outline" slot="start"></ion-icon>
+                  Delete
+
+                </ion-button>
+
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+
+        }
+
+      } @else {
+
+        <div class="empty-recipes">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <h3>No Recipes Yet</h3>
+          <p>Click Add Recipe to create your first recipe.</p>
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</ion-content>

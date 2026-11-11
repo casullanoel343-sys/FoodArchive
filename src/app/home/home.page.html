@@ -1,0 +1,153 @@
+
+<!-- LEFT SIDEBAR MENU -->
+<ion-menu
+  menuId="food-menu"
+  contentId="main-content"
+  side="start"
+  type="overlay">
+
+  <ion-header>
+    <ion-toolbar color="success">
+      <ion-title>Food Archive</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div class="menu-heading">
+      <ion-icon name="restaurant-outline"></ion-icon>
+      <h2>Food Recipes</h2>
+      <p>Choose your favorite category</p>
+    </div>
+
+    <ion-list>
+      @for (category of categories; track category) {
+        <ion-menu-toggle>
+          <ion-item
+            button
+            detail="false"
+            [class.selected-category]="selectedCategory() === category"
+            (click)="chooseCategory(category)">
+
+            <ion-icon
+              name="restaurant-outline"
+              slot="start">
+            </ion-icon>
+
+            <ion-label>{{ category }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      }
+    </ion-list>
+
+    <div class="menu-bottom">
+      <ion-menu-toggle>
+        <ion-item button detail="false" (click)="goProfile()">
+          <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+          <ion-label>My Profile</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      @if (isAdmin()) {
+        <ion-menu-toggle>
+          <ion-item button detail="false" (click)="goAdmin()">
+            <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+            <ion-label>Admin Dashboard</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      }
+
+      <ion-item button detail="false" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<!-- MAIN HOME PAGE -->
+<div class="main-page" id="main-content">
+
+  <ion-header>
+    <ion-toolbar color="light">
+
+      <ion-buttons slot="start">
+        <ion-menu-button menu="food-menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>Food Archive</ion-title>
+
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+
+    <div class="welcome-section">
+      <ion-icon name="restaurant-outline" class="welcome-icon"></ion-icon>
+
+      <p class="welcome-small">YOUR PERSONAL RECIPE COLLECTION</p>
+
+      <h1>WELCOME TO<br />FOOD ARCHIVE!</h1>
+
+      <p class="welcome-description">
+        Discover delicious meals and explore your favorite food recipes.
+      </p>
+
+      <p class="category-label">
+        Selected category: <strong>{{ selectedCategory() }}</strong>
+      </p>
+    </div>
+
+    <div class="recipe-section">
+
+      <h2>
+        {{ selectedCategory() === 'All Recipes'
+          ? 'Explore Recipes'
+          : selectedCategory() + ' Recipes' }}
+      </h2>
+
+      @if (filteredRecipes().length > 0) {
+
+        <div class="recipe-grid">
+          @for (recipe of filteredRecipes(); track recipe.id) {
+            <ion-card class="recipe-card">
+
+              <ion-card-header>
+                <ion-card-title>{{ recipe.name }}</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <p>{{ recipe.description }}</p>
+
+                <ion-button
+                  expand="block"
+                  color="success"
+                  (click)="openRecipe(recipe)">
+                  View Recipe
+                </ion-button>
+              </ion-card-content>
+
+            </ion-card>
+          }
+        </div>
+
+      } @else {
+
+        <div class="empty-section">
+          <ion-icon name="restaurant-outline"></ion-icon>
+
+          <h3>No Recipes Yet</h3>
+
+          <p>
+            There are currently no recipes in this category.
+            Please check again later.
+          </p>
+        </div>
+
+      }
+
+    </div>
+
+  </ion-content>
+</div>

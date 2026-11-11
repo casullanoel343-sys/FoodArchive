@@ -1,0 +1,125 @@
+
+.profile-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* PROFILE HEADER */
+.profile-header {
+  text-align: center;
+  padding: 35px 20px;
+  background: #f0f7ee;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  background: #dcebd7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar ion-icon {
+  font-size: 85px;
+  color: #4b8050;
+}
+
+.profile-header h1 {
+  font-size: 25px;
+  font-weight: 700;
+  color: #263b2b;
+  margin: 10px 0;
+}
+
+.profile-header p {
+  color: #718071;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.profile-header ion-badge {
+  padding: 7px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+/* ACCOUNT INFORMATION */
+ion-card {
+  margin: 0 0 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+ion-card-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #263b2b;
+}
+
+ion-card-content {
+  padding: 10px 16px 16px;
+}
+
+ion-item {
+  --background: transparent;
+  --padding-start: 5px;
+  --inner-padding-end: 5px;
+  margin: 8px 0;
+}
+
+ion-item ion-icon {
+  font-size: 23px;
+  margin-right: 14px;
+}
+
+ion-item ion-label p {
+  color: #849084;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+ion-item ion-label h2 {
+  color: #263b2b;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ACCOUNT SETTINGS */
+.logout-card h2 {
+  color: #263b2b;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.logout-card p {
+  color: #849084;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.logout-card ion-button {
+  --border-radius: 10px;
+  height: 45px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 15px 12px 30px;
+  }
+
+  .profile-header {
+    padding: 28px 15px;
+  }
+
+  .profile-header h1 {
+    font-size: 22px;
+  }
+}
